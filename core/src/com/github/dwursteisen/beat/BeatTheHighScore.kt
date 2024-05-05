@@ -38,7 +38,7 @@ open class BeatTheHighScore : Game() {
                             "Will force the loading of it. (Bad performance expected!)"
                 }
 
-                finishLoadingAsset(fileName)
+                finishLoadingAsset(fileName) as Any?
                 super.get(fileName, type)
             }
         }
