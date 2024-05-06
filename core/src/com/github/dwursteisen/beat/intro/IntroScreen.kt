@@ -22,7 +22,11 @@ import com.badlogic.gdx.utils.I18NBundle
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.github.dwursteisen.beat.BeatTheHighScore
-import com.github.dwursteisen.beat.game.*
+import com.github.dwursteisen.beat.game.Position
+import com.github.dwursteisen.beat.game.Size
+import com.github.dwursteisen.beat.game.Config
+import com.github.dwursteisen.beat.game.AnimationSystem
+import com.github.dwursteisen.beat.game.RenderSystem
 import com.github.dwursteisen.libgdx.aseprite.Aseprite
 import com.github.dwursteisen.libgdx.ashley.StateComponent
 import com.github.dwursteisen.libgdx.ashley.StateSystem
@@ -32,14 +36,13 @@ import ktx.log.debug
 import ktx.log.info
 
 class Intro : Component
-class TextRender(var text: String = "",
-                 var color: Color = Color.WHITE,
-                 var scale: Float = 1f,
-                 var halign: Int = Align.left
+class TextRender(
+    var text: String = "",
+    var color: Color = Color.WHITE,
+    var scale: Float = 1f,
+    var halign: Int = Align.left
 ) : Component
-
 class TapToSkip(val txt: String) : Component
-
 
 class IntroScreen(private val assetsManager: AssetManager) : ScreenAdapter() {
 
@@ -59,9 +62,9 @@ class IntroScreen(private val assetsManager: AssetManager) : ScreenAdapter() {
 
         engine.entity {
             entity.add(StateComponent())
-                    .add(Position(-128f * 0.5f v2 -192f * 0.5f))
-                    .add(Size(128f v2 192f))
-                    .add(Intro())
+                .add(Position(-128f * 0.5f v2 -192f * 0.5f))
+                .add(Size(128f v2 192f))
+                .add(Intro())
         }
 
         val font: BitmapFont = if (Config.customFont) {
@@ -150,10 +153,10 @@ class IntroScreen(private val assetsManager: AssetManager) : ScreenAdapter() {
                 engine.entity {
                     val i18n: I18NBundle = assetsManager["i18n/messages"]
                     entity.add(StateComponent())
-                            .add(Position(-128f * 0.5f v2 -110f))
-                            .add(Size(128f v2 192f))
-                            .add(TextRender(halign = Align.center, scale = 1 / 4f))
-                            .add(TapToSkip(i18n["intro.tap.to.skip"]))
+                        .add(Position(-128f * 0.5f v2 -110f))
+                        .add(Size(128f v2 192f))
+                        .add(TextRender(halign = Align.center, scale = 1 / 4f))
+                        .add(TapToSkip(i18n["intro.tap.to.skip"]))
                 }
             }
         }

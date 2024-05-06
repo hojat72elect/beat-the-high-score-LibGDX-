@@ -36,16 +36,16 @@ class IntroSystem(assetManager: AssetManager) : IteratingSystem(Family.all(Intro
         val i18n: I18NBundle = assetManager["i18n/messages"]
 
         actions = listOf(
-                Action.Text(i18n["intro.fox.line1"], this),
-                Action.Text(i18n["intro.fox.line2"], this),
-                Action.Anim("fox", this),
-                Action.Text(i18n["intro.kidnapping.line1"], this),
-                Action.Anim("kidnapping", this),
-                Action.Text(i18n["intro.chicken.line1"], this),
-                Action.Text(i18n["intro.chicken.line2"], this),
-                Action.Anim("chicken", this),
-                Action.Text(i18n["intro.end.line1"], this),
-                Action.Text(i18n["intro.end.line2"], this)
+            Action.Text(i18n["intro.fox.line1"], this),
+            Action.Text(i18n["intro.fox.line2"], this),
+            Action.Anim("fox", this),
+            Action.Text(i18n["intro.kidnapping.line1"], this),
+            Action.Anim("kidnapping", this),
+            Action.Text(i18n["intro.chicken.line1"], this),
+            Action.Text(i18n["intro.chicken.line2"], this),
+            Action.Anim("chicken", this),
+            Action.Text(i18n["intro.end.line1"], this),
+            Action.Text(i18n["intro.end.line2"], this)
         )
     }
 
@@ -93,6 +93,7 @@ class IntroSystem(assetManager: AssetManager) : IteratingSystem(Family.all(Intro
                     entity[position].position.set(-128f * 0.3f, -56f)
                     entity[size].size.set(128f * 0.8f, 64f)
                 }
+
                 is Action.Anim -> {
                     entity.remove(TextRender::class.java)
                     entity.add(Animated())

@@ -99,11 +99,11 @@ class CreditsScreen(val assets: AssetManager) : ScreenAdapter() {
         stage.addActor(root)
         stage.isDebugAll = Config.scene2d
         stage.addListener(
-                object : ClickListener() {
-                    override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                        BeatTheHighScore.title()
-                    }
-                })
+            object : ClickListener() {
+                override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                    BeatTheHighScore.title()
+                }
+            })
         Gdx.input.inputProcessor = stage
 
         info { "Configuring Shaders" }

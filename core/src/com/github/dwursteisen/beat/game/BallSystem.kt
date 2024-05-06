@@ -8,7 +8,14 @@ import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import com.github.dwursteisen.libgdx.ashley.*
+import com.github.dwursteisen.libgdx.ashley.EntityState
+import com.github.dwursteisen.libgdx.ashley.EventBus
+import com.github.dwursteisen.libgdx.ashley.EventData
+import com.github.dwursteisen.libgdx.ashley.Rotation
+import com.github.dwursteisen.libgdx.ashley.StateComponent
+import com.github.dwursteisen.libgdx.ashley.StateMachineSystem
+import com.github.dwursteisen.libgdx.ashley.get
+import com.github.dwursteisen.libgdx.ashley.entity
 import com.github.dwursteisen.libgdx.v2
 import ktx.ashley.entity
 
@@ -16,7 +23,8 @@ import ktx.ashley.entity
 operator fun Vector2.component1() = this.x
 operator fun Vector2.component2() = this.y
 
-class BallSystem(eventBus: EventBus, val assetManager: AssetManager) : StateMachineSystem(eventBus, Family.all(Ball::class.java, Position::class.java).get()) {
+class BallSystem(eventBus: EventBus, val assetManager: AssetManager) :
+    StateMachineSystem(eventBus, Family.all(Ball::class.java, Position::class.java).get()) {
 
 
     private val position: ComponentMapper<Position> = get()
@@ -64,8 +72,8 @@ class BallSystem(eventBus: EventBus, val assetManager: AssetManager) : StateMach
 
                 if (touched) {
                     engine.entity {
-                        EngineEntity@ this.entity.add(Position(entity[position].position.cpy()))
-                                .add(ParticleEntity())
+                        this.entity.add(Position(entity[position].position.cpy()))
+                            .add(ParticleEntity())
                     }
 
                 }
@@ -95,12 +103,12 @@ class BallSystem(eventBus: EventBus, val assetManager: AssetManager) : StateMach
     private fun touchPlayer(entity: Entity): Boolean {
         val p = engine.entity(Player::class.java)
         tmp.set(p[player].offsetHitbox)
-                .add(p[position].position)
+            .add(p[position].position)
 
         tmpRectangle.set(tmp, p[player].hitbox)
 
         tmp.set(entity[position].position)
-                .add(entity[ball].direction)
+            .add(entity[ball].direction)
 
         val ballHitbox = Rectangle(tmp.x, tmp.y, entity[size].size.x, entity[size].size.y)
 
@@ -125,15 +133,19 @@ class BallSystem(eventBus: EventBus, val assetManager: AssetManager) : StateMach
 
     private fun touchBrick(entity: Entity): Boolean {
         tmp.set(entity[position].position)
-                .add(entity[ball].direction.x, 0f)
+            .add(entity[ball].direction.x, 0f)
         tmp2.set(entity[position].position)
-                .add(0f, entity[ball].direction.y)
+            .add(0f, entity[ball].direction.y)
 
-        val moveX = Rectangle(tmp.x, tmp.y,
-                entity[size].size.x, entity[size].size.y)
+        val moveX = Rectangle(
+            tmp.x, tmp.y,
+            entity[size].size.x, entity[size].size.y
+        )
 
-        val moveY = Rectangle(tmp2.x, tmp2.y,
-                entity[size].size.x, entity[size].size.y)
+        val moveY = Rectangle(
+            tmp2.x, tmp2.y,
+            entity[size].size.x, entity[size].size.y
+        )
 
         val bricks = engine.getEntitiesFor(brickFamilly)
         val brickOnX = bricks.firstOrNull { overlaps(moveX, it) }
@@ -171,7 +183,7 @@ class BallSystem(eventBus: EventBus, val assetManager: AssetManager) : StateMach
 
     private fun outsideArea(entity: Entity): Boolean {
         tmp.set(entity[ball].direction)
-                .add(entity[position].position)
+            .add(entity[position].position)
 
         var touched = false
         // outside the arena ?
