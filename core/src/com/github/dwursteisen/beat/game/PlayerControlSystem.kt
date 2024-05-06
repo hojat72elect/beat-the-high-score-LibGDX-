@@ -43,7 +43,7 @@ class PlayerControlSystem(private val viewport: Viewport) : IteratingSystem(Fami
                 engine.entity {
                     entity.add(Position(position = origin))
                             .add(PlayerTouch())
-                            .add(Debugable())
+                            .add(Debuggable())
                             .add(Size(4f v2 4f))
                             .add(ShapeToRender(type = ShapeType.Circle, color = Color.WHITE))
                 }
@@ -51,7 +51,7 @@ class PlayerControlSystem(private val viewport: Viewport) : IteratingSystem(Fami
                 engine.entity {
                     entity.add(Position(position = current))
                             .add(PlayerTouch())
-                            .add(Debugable())
+                            .add(Debuggable())
                             .add(Size(4f v2 4f))
                             .add(ShapeToRender(type = ShapeType.Circle, color = Color.WHITE))
                 }

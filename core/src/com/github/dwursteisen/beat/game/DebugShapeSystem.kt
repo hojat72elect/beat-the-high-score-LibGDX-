@@ -13,7 +13,7 @@ import ktx.ashley.has
 import ktx.graphics.circle
 import ktx.graphics.rect
 
-class DebugShapeSystem(private val batch: ShapeRenderer) : IteratingSystem(Family.all(Debugable::class.java, Position::class.java, ShapeToRender::class.java, Size::class.java).get()) {
+class DebugShapeSystem(private val batch: ShapeRenderer) : IteratingSystem(Family.all(Debuggable::class.java, Position::class.java, ShapeToRender::class.java, Size::class.java).get()) {
 
     private val position: ComponentMapper<Position> = get()
     private val size: ComponentMapper<Size> = get()

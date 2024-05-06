@@ -42,7 +42,6 @@ import ktx.log.info
 import ktx.scene2d.horizontalGroup
 import ktx.scene2d.textButton
 import com.badlogic.gdx.utils.Array as GdxArray
-import com.github.dwursteisen.libgdx.ashley.Position as AshleyPosition
 
 sealed class ShapeType(val filed: Boolean) {
     object FilledRectangle : ShapeType(true)
@@ -95,7 +94,7 @@ class StageComponent(val stage: Stage) : Component
 
 class Transition(val duration: Float = 0.5f, val wayIn: Boolean = true, var done: Boolean = false) : Component
 
-class Debugable : Component
+class Debuggable : Component
 class DebugCollision(var hit: Float = 0f) : Component
 class ParticleEntity(var particle: ParticleEffectPool.PooledEffect? = null) : Component
 
@@ -295,7 +294,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
 
             val entity = engine.createEntity()
                     .add(Brick(hit = props.hit, body = createBox2DRect(pos.cpy().sub(-it.rectangle.width * 0.5f, startOffset - it.rectangle.height * 0.5f), size.cpy().sub(it.rectangle.width * 0.5f, it.rectangle.height * 0.5f))))
-                    .add(Debugable())
+                    .add(Debuggable())
                     .add(DebugCollision())
                     .add(Position(pos))
                     .add(Size(size))
@@ -344,7 +343,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
             val pos = props.x v2 props.y
 
             engine.entity {
-                entity.add(Debugable())
+                entity.add(Debuggable())
                         .add(DebugCollision())
                         .add(Position(pos))
                         .add(Size(size))
@@ -361,7 +360,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
 
             val ball: Aseprite = assets["sheets/egg"]
             entity.add(Ball(direction = 0 v2 0))
-                    .add(Debugable())
+                    .add(Debuggable())
                     .add(Position(((screenWidth - ballRadius) * 0.5f) v2 25 + playerHeight))
                     .add(Size(8 v2 9))
                     .add(ShapeToRender(type = ShapeType.Rectangle, color = Color.WHITE))
@@ -388,7 +387,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
 
         engine.entity {
             entity.add(Player(hitbox = bounds.w v2 bounds.h, offsetHitbox = bounds.x v2 (playerHeight - bounds.y) - bounds.h))
-                    .add(Debugable())
+                    .add(Debuggable())
                     .add(DebugCollision())
                     .add(EntityRender())
                     .add(Animated())
@@ -401,7 +400,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
         // --- FOX --- //
         val fox: Aseprite = assets["sheets/renard"]
         engine.entity {
-            entity.add(Debugable())
+            entity.add(Debuggable())
                     .add(EntityRender())
                     .add(Animated(fox["idle"]))
                     .add(Position((screenWidth - 64) v2 (screenHeight - 32)))
@@ -434,7 +433,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
 
             engine.entity {
                 val texture = clouds[cloudsName.pickOne()].getKeyFrame(0f)
-                entity.add(Debugable())
+                entity.add(Debuggable())
                         .add(Cloud(origin = it, offset = index.toFloat() * 2.5f))
                         .add(Position(it.cpy()))
                         .add(Size(64 v2 64))
@@ -589,7 +588,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
 
         zeMap.setView(viewport.camera as OrthographicCamera)
 
-        engine.update(Math.min(delta, 1 / 60f))
+        engine.update(delta.coerceAtMost(1 / 60f))
 
         val bodies = GdxArray<Body>()
         world.getBodies(bodies)
@@ -639,7 +638,7 @@ class GameScreen(private val assets: AssetManager, var levelName: String = "leve
                             .add(Size(chickenSize))
                             .add(StateComponent())
                             .add(EntityRender())
-                            .add(Debugable())
+                            .add(Debuggable())
                             .add(Rotation())
                             .add(Animated(animation = chickenAnimation))
                 }

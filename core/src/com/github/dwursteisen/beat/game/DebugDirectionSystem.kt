@@ -11,7 +11,7 @@ import com.github.dwursteisen.libgdx.ashley.Direction
 import com.github.dwursteisen.libgdx.ashley.get
 import com.github.dwursteisen.libgdx.ashley.getNullable
 
-class DebugDirectionSystem(val batch: ShapeRenderer) : IteratingSystem(Family.all(Debugable::class.java, Position::class.java).get()) {
+class DebugDirectionSystem(val batch: ShapeRenderer) : IteratingSystem(Family.all(Debuggable::class.java, Position::class.java).get()) {
 
     private val ball: ComponentMapper<Ball> = get()
     private val player: ComponentMapper<Player> = get()

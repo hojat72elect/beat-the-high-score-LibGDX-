@@ -145,7 +145,7 @@ class BrickSystem(eventBus: EventBus, private val world: World, val assets: Asse
                     .add(Size(chickenSize))
                     .add(StateComponent())
                     .add(EntityRender(hFlip = direction.second))
-                    .add(Debugable())
+                    .add(Debuggable())
                     .add(Direction(value = dir))
                     .add(Animated(animation = chickenAnimation))
         }

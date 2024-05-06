@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.github.dwursteisen.libgdx.ashley.get
 
-class DebugPositionSystem(private val batch: SpriteBatch) : IteratingSystem(Family.all(Debugable::class.java, Position::class.java).get()) {
+class DebugPositionSystem(private val batch: SpriteBatch) : IteratingSystem(Family.all(Debuggable::class.java, Position::class.java).get()) {
 
     private val font = BitmapFont().apply {
         this.data.setScale(0.35f)
