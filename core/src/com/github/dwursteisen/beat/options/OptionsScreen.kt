@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.I18NBundle
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.github.dwursteisen.beat.BeatTheHighScore
 import com.github.dwursteisen.beat.extensions.centerCamera
+import com.github.dwursteisen.beat.extensions.asGdx
 import com.github.dwursteisen.beat.game.Config
 import com.github.dwursteisen.beat.game.screenHeight
 import com.github.dwursteisen.beat.game.screenWidth
@@ -26,11 +27,6 @@ import ktx.scene2d.scrollPane
 import ktx.scene2d.selectBoxOf
 import ktx.scene2d.table
 import ktx.scene2d.textButton
-import com.badlogic.gdx.utils.Array as GdxArray
-
-inline fun <reified T> Collection<T>.asGdx(): GdxArray<T> {
-    return GdxArray(toTypedArray())
-}
 
 class OptionsScreen(assetManager: AssetManager) : ScreenAdapter() {
 
